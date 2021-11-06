@@ -54,7 +54,7 @@ class ArtistaController
 
         $dbh = DBCore::instance()->dbh;
 
-        $sth = $dbh->prepare("INSERT INTO artistas (`name`, `country`) VALUES (?, ?)");
+        $sth = $dbh->prepare("INSERT INTO artistas (`nome`, `pais`) VALUES (?, ?)");
 
         $sth->execute(
             array(
@@ -63,7 +63,7 @@ class ArtistaController
             )
         );
 
-        header("Location: index.php?method=ExibirArtistas");
+        header("Location: index.php");
     }
 
     public function ExibirArtistas()
@@ -80,8 +80,8 @@ class ArtistaController
         while ($artista = $sth->fetch(PDO::FETCH_ASSOC)) {
             $this->model = new ArtistaModel();
             $this->model->setId($artista['id']);
-            $this->model->setName($artista['name']);
-            $this->model->setCountry($artista['country']);
+            $this->model->setName($artista['nome']);
+            $this->model->setCountry($artista['pais']);
             $this->view->addParameter($cont++, $this->model);
         }
 

@@ -6,22 +6,28 @@ class Application {
 
     private $controller;
 
+	public function getLocalPath() {
+		$dbini = './dbconnection.ini';
+		if (!$config = parse_ini_file($dbini, TRUE)) {
+			throw new Exception('Unable to open ' . $dbini . '.');
+
+		} 
+		return $config["application"]["root"];
+	}
+
     public function constructor() {
     }
 
     public function dispatch(){
         
-        if(isset($_REQUEST['method'])  ){
-            $method = $_REQUEST['method'];
+        $method = isset($_REQUEST['method']) ? $_REQUEST['method']: 'ExibirArtistas';
 
-        }else{
-            $method = 'ExibirArtistas';
-        }
-        switch(isset($_REQUEST['method'])? $_REQUEST['method']: 'ExibirArtistas')
+        switch($method)
         {
             case 'InserirArtista':
                 $controller = new ArtistaController();
-                $controller->InserirArtista(isset($_REQUEST['name'])? $_REQUEST['name'] : null, isset($_REQUEST['country'])? $_REQUEST['country']: null);
+
+                $controller->InserirArtista(isset($_REQUEST['nome'])? $_REQUEST['nome'] : null, isset($_REQUEST['pais'])? $_REQUEST['pais']: null);
                 break;
             case "ExibirArtistas":
                 $controller = new ArtistaController();

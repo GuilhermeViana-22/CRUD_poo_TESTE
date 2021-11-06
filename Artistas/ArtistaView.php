@@ -17,9 +17,10 @@ $params = $this->getParameter();
     <main class="container">
         <h1>CADASTRO DE ARTISTAS</h1>
 
-        <form method="POST" class="formulario" action="http://localhost/xampp/DevPhp/Artistas/Cadastro.php">
-            <input type="text" name="name" id="name" class="input" placeholder="Nome do artista">
-            <input type="text" name="country" id="country" class="input" placeholder="País do artista">
+        <form method="POST" class="formulario" action="<?php echo Application::getLocalPath(); ?>/">
+			<input type="hidden" name="method" value="InserirArtista"/>
+            <input type="text" name="nome" id="nome" class="input" placeholder="Nome do artista">
+            <input type="text" name="pais" id="pais" class="input" placeholder="País do artista">
             <button type="submit">Enviar</button>
             <br>
             <?php
